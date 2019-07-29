@@ -25,15 +25,19 @@ public class CalculationTest {
     public void itShouldCalculateTotalIncome() {
         //vybrat fond,sumu,roky,email
         //vybrat fond
-        new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText("Hoggwart's Fund");
+        //new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText("Hoggwart's Fund");
         // Select je zo selenia, treba alt+enter, potom vyberas podla "visibleText" co sa zobrazuje v comboboxe
-
+        selectFund("McDuck's safe");
         //zadat sumu
-        driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys("100");
+        //driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys("100");
+        onetimeInvestment("100");
         //zadat pocet rokov
-        driver.findElement(By.id("yearsInput")).sendKeys("20");
+        //driver.findElement(By.id("yearsInput")).sendKeys("20");
+        enterAge("25");
         //zadat email - najde pole
-        driver.findElement(By.id("emailInput")).sendKeys("m@v.sk");
+        //driver.findElement(By.id("emailInput")).sendKeys("m@v.sk");
+        enterEmail("m@v.sk");
+
 
         Assert.assertTrue(driver.findElement(By.cssSelector("button.btn-block")).isEnabled());
 
@@ -45,41 +49,41 @@ public class CalculationTest {
 
     @Test
     public void itShouldCalculateInterestIncome() {
-        //vybrat fond,sumu,roky,email
-        //vybrat fond
-        new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText("Hoggwart's Fund");
-        // Select je zo selenia, treba alt+enter, potom vyberas podla "visibleText" co sa zobrazuje v comboboxe
+        selectFund("Hoggwart's Fund");  //toto su metody, som nahradil predosly kod viem tam nahodit konkretny string ktory sa ma vybrat
+        onetimeInvestment("20");
+        enterAge("35") ;
+        enterEmail("j@v.sk");
 
-        //zadat sumu
-        driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys("100");
-        //zadat pocet rokov
-        driver.findElement(By.id("yearsInput")).sendKeys("20");
-        //zadat email - najde pole
-        driver.findElement(By.id("emailInput")).sendKeys("m@v.sk");
-
+        //overuje ci je button active
         Assert.assertTrue(driver.findElement(By.cssSelector("button.btn-block")).isEnabled());
 
-        //overit ze interest income nieje prazdny
+        //overit ze interest income nieje prazdny, posledny overuje ci je tam "kr"
         driver.findElement(By.xpath("//*[@id='app']/div/div[1]/div[5]/div[2]/p"));
         Assert.assertFalse(driver.findElement(By.xpath("//*[@id='app']/div/div[1]/div[5]/div[2]/p")).getText().isEmpty());
         Assert.assertTrue(driver.findElement(By.xpath("//*[@id='app']/div/div[1]/div[5]/div[2]/p")).getText().contains("kr"));
-
-
     }
 
     @Test
     public void itShouldCalculateRisk() {
         //vybrat fond,sumu,roky,email
         //vybrat fond
-        new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText("Hoggwart's Fund");
+        //new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText("Hoggwart's Fund");
         // Select je zo selenia, treba alt+enter, potom vyberas podla "visibleText" co sa zobrazuje v comboboxe
+        //nahradil si metodou z konca, mozes vlozit konkretny string
+        selectFund("Fellowship investment group");
+
 
         //zadat sumu
-        driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys("100");
+        //driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys("100");
+        onetimeInvestment("10");
+
         //zadat pocet rokov
-        driver.findElement(By.id("yearsInput")).sendKeys("20");
+        //driver.findElement(By.id("yearsInput")).sendKeys("20");
+        enterAge("45");
+
         //zadat email - najde pole
-        driver.findElement(By.id("emailInput")).sendKeys("m@v.sk");
+        //driver.findElement(By.id("emailInput")).sendKeys("m@v.sk");
+        enterEmail("w@v.sk");
 
         Assert.assertTrue(driver.findElement(By.cssSelector("button.btn-block")).isEnabled());
 
@@ -88,10 +92,31 @@ public class CalculationTest {
         Assert.assertFalse(driver.findElement(By.xpath("//*[@id='app']/div/div[1]/div[5]/div[3]/p")).getText().isEmpty());
     }
 
+    private void selectFund(String fundToSelect){
+        new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText(fundToSelect);
+        //nahradil si tvrdy input premennou "fundToSelect"
+           // vyberanie Fund z povodneho scriptu sme vytiahli von
+            //private - viditelna iba vramci tejto class. public je viditelna pre cely projekt
+              // void - nema ziadny output, iba vykona nejaky prikaz
+    }
+
+    private void onetimeInvestment(String amountToEnter){               //ideme nahradit kod ktory vklada sumu do fieldu one time investment
+        driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys(amountToEnter);
+
+    }
+
+    private void enterAge(String age) {                     //nahradazam vyplnanie veku
+        driver.findElement(By.id("yearsInput")).sendKeys(age);
+    }
+
+    private void enterEmail(String email) {                     //nahradzam vyplnenie mejlu
+        driver.findElement(By.id("emailInput")).sendKeys(email);
+    }
+
 
     @After
     public void tearDown() throws InterruptedException {              //do after si vytiahol zatvaranie browsera ktore si mal v kazdej metode zvlast.
-        Thread.sleep(5000);         // pocka 5 sekund
+        Thread.sleep(50000);         // pocka 5 sekund               // interupted exception ti pribudlo ked si povolil exception
         driver.close();
         driver.quit();
     }
