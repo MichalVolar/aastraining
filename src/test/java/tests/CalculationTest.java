@@ -12,12 +12,11 @@ import org.openqa.selenium.support.ui.Select;
 
 
 public class CalculationTest {
-    WebDriver driver;             // toto si premenovavas class ktory importujes zo selenia na driver aby si to nemusel vypisovat. driver je premenna
+    private WebDriver driver = new ChromeDriver();             // toto si premenovavas class ktory importujes zo selenia na driver aby si to nemusel vypisovat. driver je premenna
 
     @Before                 //toto je anotacia
     public void setUp() {            // setUp je nazov lubovolny. do before si vytiahol otvaranie browsera ktore si mal v kazdej metode zvlast
         System.setProperty("webDriver.chrome.driver", "chromedriver.exe");
-        driver = new ChromeDriver();
         driver.get("http://localhost/savingscalculator.php");
     }
 
@@ -113,13 +112,24 @@ public class CalculationTest {
         driver.findElement(By.id("emailInput")).sendKeys(email);
     }
 
+    @Test
+    public void everyFund() {
+        String[] fundsToSelect = {"Handelsbanken Aktiv 100","Hoggwart's Fund","Fellowship investment group","McDuck's safe",
+                "Batman's Cave Development","Death Star real estate","Tom & Jerry corp"};
+        for (String fundToSelect : fundsToSelect) {
+            System.out.println(fundToSelect);
+        }
+
+    }
+
+
 
     @After
-    public void tearDown() throws InterruptedException {              //do after si vytiahol zatvaranie browsera ktore si mal v kazdej metode zvlast.
-        Thread.sleep(50000);         // pocka 5 sekund               // interupted exception ti pribudlo ked si povolil exception
+    public void tearDown() {              //do after si vytiahol zatvaranie browsera ktore si mal v kazdej metode zvlast.
+        //Thread.sleep(500000000);         // pocka 5 sekund               // interupted exception ti pribudlo ked si povolil exception
         driver.close();
         driver.quit();
     }
-
+            //alt+f8 vies spustit evaluate
 
 }
