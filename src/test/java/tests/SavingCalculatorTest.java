@@ -1,5 +1,6 @@
 package tests;
 
+import Base.TestBase;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,7 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class SavingCalculatorTest {
+public class SavingCalculatorTest extends TestBase {
     WebDriver driver;
     //vytiahol si tento webdriver z metod do class aby to vedeli pouzivat vsetky metody v tejto class
 

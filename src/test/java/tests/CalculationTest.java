@@ -1,6 +1,7 @@
 package tests;
 
 
+import Base.TestBase;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,7 +12,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
 
-public class CalculationTest {
+public class CalculationTest extends TestBase {
     private WebDriver driver = new ChromeDriver();             // toto si premenovavas class ktory importujes zo selenia na driver aby si to nemusel vypisovat. driver je premenna
 
     @Before                 //toto je anotacia
