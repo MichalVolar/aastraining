@@ -29,9 +29,9 @@ public class Calculation {
             onetimeInvestment("100");
             enterAge("25");
             enterEmail("m@v.sk");
-            Assert.assertFalse(driver
-            .findElement(By.xpath("//*[@id='app']/div/div[1]/div[5]/div[3]/p")).getText().isEmpty());
-            getTotalIncome();
+            Assert.assertFalse(getTotalIncome().isEmpty());      //nahradene metodou getTotalIncome()
+            Assert.assertTrue(getInterestIncome());
+
             //System.out.println("hgu");  //printoval si string aby si zastavil debugger na tomto bode
         }
 
@@ -42,11 +42,13 @@ public class Calculation {
 ///////// METODY
 
     private String getTotalIncome(){
-        final String Value = driver.findElement(By.xpath("//*[@id='app']/div/div[1]/div[5]/div[3]/p")).getText();
-        return Value;
-
+        return driver.findElement(By.xpath("//*[@id='app']/div/div[1]/div[5]/div[1]/p")).getText();
     }
 
+    private boolean getInterestIncome(){
+        Assert.assertFalse(driver.findElement(By.xpath("//*[@id='app']/div/div[1]/div[5]/div[2]/p")).getText().isEmpty());
+        return false;
+    }
 
     private void selectFund(String fundToSelect){
         new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText(fundToSelect);
@@ -58,7 +60,6 @@ public class Calculation {
 
     private void onetimeInvestment(String amountToEnter){               //ideme nahradit kod ktory vklada sumu do fieldu one time investment
         driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys(amountToEnter);
-
     }
 
     private void enterAge(String age) {                     //nahradazam vyplnanie veku
