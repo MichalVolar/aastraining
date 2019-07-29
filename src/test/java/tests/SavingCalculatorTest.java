@@ -64,6 +64,9 @@ public class SavingCalculatorTest {
     }
 
 
+
+
+
     @After
     public void tearDown(){              //do after si vytiahol zatvaranie browsera ktore si mal v kazdej metode zvlast.
         driver.close();
