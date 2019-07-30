@@ -3,6 +3,7 @@ package pages;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 public class SavingsCalculatorPage {
@@ -20,6 +21,10 @@ private WebDriver pageDriver;
       public boolean getInterestIncome(){
         Assert.assertFalse(pageDriver.findElement(By.xpath("//*[@id='app']/div/div[1]/div[5]/div[2]/p")).getText().isEmpty());
         return false;
+    }
+
+    public WebElement getTABULA(String s) {                    /// vytvoril si skratkou ctl+alt+M v sheete NewSaving
+        return pageDriver.findElement(By.xpath(s));                 //// - potom si to mozes prehodit do Page so vsetkymi public metodami (cize sem)
     }
 
     public void selectFund(String fundToSelect){
