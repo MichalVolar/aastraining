@@ -28,11 +28,13 @@ public class NewSavingReqestTest extends TestBase {
         //overit total income je zobrazeny
        // System.out.println(driver.findElement(By.xpath("//*[@id='app']/div/div[2]/ul/li/div/div/div[1]")).getText());  //vypise text celeho bloku
         System.out.println(driver.findElement(By.xpath("//*[@id='app']/div/div[2]/ul/li/div/div/div[1]/p[1]/span")).getText()); //vypise konkretne total income
+        //sout
 
         Assert.assertEquals(calculatedIncome,driver.findElement(By.xpath("//*[@id='app']/div/div[2]/ul/li/div/div/div[1]/p[1]/span")).getText());
-        //porovnanie calculated income s realnou hodnotou ktoru si vytiahol pomocou System.out.println...
-
-        //
+        //porovnanie calculated income s realnou hodnotou (assert equals) ktoru si vytiahol pomocou System.out.println...
+        //pouzity xpath si zobral z browsra, takto vyzera ked pouzivas xpath helper //ul[contains(@class,'saving-list')]/li//div/p/span
+        // do xpath helpera pises priamo HTML elementy, do hranatej zatvorky davas poradie //ul[contains(@class,'saving-list')]/li//div[contains(@class,'amount')]/p[2]/span['total']
+        // a takto by to vyzeralo pomocou .findElement(By.cssSelector("ul.saving-list > li div.amounts > p > span"))
 
     }
 
