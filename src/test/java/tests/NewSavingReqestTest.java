@@ -1,11 +1,11 @@
 package tests;
 
 
+import Utilities.Utils;
 import base.TestBase;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import pages.SavingsCalculatorPage;
 
 public class NewSavingReqestTest extends TestBase {
@@ -46,8 +46,8 @@ public class NewSavingReqestTest extends TestBase {
         SavingsCalculatorPage calculatorPage = new SavingsCalculatorPage(driver);
         String fundName = "McDuck's safe";
         calculatorPage.selectFund(fundName);
-        calculatorPage.onetimeInvestment("100");
-        calculatorPage.enterAge("25");
+        calculatorPage.onetimeInvestment(String.valueOf(Utils.getRandomNumberInRange(10,500500)));
+        calculatorPage.enterAge(String.valueOf(Utils.getRandomNumberInRange(10,100)));
         calculatorPage.enterEmail("m@v.sk");
         //vytvorit novy saving request
         driver.findElement(By.cssSelector("button.btn-block")).click();
@@ -66,6 +66,29 @@ public class NewSavingReqestTest extends TestBase {
         // calculatorPage
 
     }
+
+    @Test
+    public void itSHouldDisplay20req(){
+        SavingsCalculatorPage calculatorPage = new SavingsCalculatorPage(driver);
+
+        for (int i = 0; i < 20; i++) {    ///fori
+            String fundName = "McDuck's safe";
+            calculatorPage.selectFund(fundName);
+            calculatorPage.onetimeInvestment(String.valueOf(Utils.getRandomNumberInRange(10,500500)));
+            calculatorPage.enterAge(String.valueOf(Utils.getRandomNumberInRange(10,100)));
+            calculatorPage.enterEmail("m@v.sk");
+            //vytvorit novy saving request
+            driver.findElement(By.cssSelector("button.btn-block")).click();
+        }
+        System.out.println("covfefe");     //sout
+        driver.findElements(By.xpath("//ul[contains(@class,'saving-list')]/li//div"));
+
+        //skontroluj pocet ci sedi, ze si poslal 20 requestov
+        Assert.assertEquals(20,driver.findElement(By.cssSelector("ul.saving-list>li>div.saving-detail")).getSize()
+        );
+    }
+
+    ///alt+f8
 
 
 }
