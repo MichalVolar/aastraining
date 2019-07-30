@@ -47,6 +47,7 @@ private WebDriver pageDriver;
     }
 
     public void enterEmail(String email) {                     //nahradzam vyplnenie mejlu
+        pageDriver.findElement(By.id("emailInput")).clear();
         pageDriver.findElement(By.id("emailInput")).sendKeys(email);
         pageDriver.findElement(By.id("emailInput")).sendKeys(Keys.TAB);
     }
