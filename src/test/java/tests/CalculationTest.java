@@ -1,7 +1,7 @@
 package tests;
 
 
-import Base.TestBase;
+import base.TestBase;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,33 +10,29 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;                   // tu importujes WebDriver class ktory pouzivas v celom scripte
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import pages.SavingsCalculatorPage;
 
 
 public class CalculationTest extends TestBase {
-    private WebDriver driver = new ChromeDriver();             // toto si premenovavas class ktory importujes zo selenia na driver aby si to nemusel vypisovat. driver je premenna
 
-    @Before                 //toto je anotacia
-    public void setUp() {            // setUp je nazov lubovolny. do before si vytiahol otvaranie browsera ktore si mal v kazdej metode zvlast
-        System.setProperty("webDriver.chrome.driver", "chromedriver.exe");
-        driver.get("http://localhost/savingscalculator.php");
-    }
 
     @Test
     public void itShouldCalculateTotalIncome() {
+        SavingsCalculatorPage calculatorPage = new SavingsCalculatorPage(driver);
         //vybrat fond,sumu,roky,email
         //vybrat fond
         //new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText("Hoggwart's Fund");
         // Select je zo selenia, treba alt+enter, potom vyberas podla "visibleText" co sa zobrazuje v comboboxe
-        selectFund("McDuck's safe");
+        calculatorPage.selectFund("McDuck's safe");
         //zadat sumu
         //driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys("100");
-        onetimeInvestment("100");
+        calculatorPage.onetimeInvestment("100");
         //zadat pocet rokov
         //driver.findElement(By.id("yearsInput")).sendKeys("20");
-        enterAge("25");
+        calculatorPage.enterAge("25");
         //zadat email - najde pole
         //driver.findElement(By.id("emailInput")).sendKeys("m@v.sk");
-        enterEmail("m@v.sk");
+        calculatorPage.enterEmail("m@v.sk");
 
 
         Assert.assertTrue(driver.findElement(By.cssSelector("button.btn-block")).isEnabled());
@@ -49,10 +45,12 @@ public class CalculationTest extends TestBase {
 
     @Test
     public void itShouldCalculateInterestIncome() {
-        selectFund("Hoggwart's Fund");  //toto su metody, som nahradil predosly kod viem tam nahodit konkretny string ktory sa ma vybrat
-        onetimeInvestment("20");
-        enterAge("35") ;
-        enterEmail("j@v.sk");
+        SavingsCalculatorPage calculatorPage = new SavingsCalculatorPage(driver);
+        calculatorPage.selectFund("Hoggwart's Fund");  //toto su metody, som nahradil predosly kod viem tam nahodit konkretny string ktory sa ma vybrat
+
+        calculatorPage.onetimeInvestment("20");
+        calculatorPage.enterAge("35") ;
+        calculatorPage.enterEmail("j@v.sk");
 
         //overuje ci je button active
         Assert.assertTrue(driver.findElement(By.cssSelector("button.btn-block")).isEnabled());
@@ -65,25 +63,26 @@ public class CalculationTest extends TestBase {
 
     @Test
     public void itShouldCalculateRisk() {
+        SavingsCalculatorPage calculatorPage = new SavingsCalculatorPage(driver);
         //vybrat fond,sumu,roky,email
         //vybrat fond
         //new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText("Hoggwart's Fund");
         // Select je zo selenia, treba alt+enter, potom vyberas podla "visibleText" co sa zobrazuje v comboboxe
         //nahradil si metodou z konca, mozes vlozit konkretny string
-        selectFund("Fellowship investment group");
+        calculatorPage.selectFund("Fellowship investment group");
 
 
         //zadat sumu
         //driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys("100");
-        onetimeInvestment("10");
+        calculatorPage.onetimeInvestment("10");
 
         //zadat pocet rokov
         //driver.findElement(By.id("yearsInput")).sendKeys("20");
-        enterAge("45");
+        calculatorPage.enterAge("45");
 
         //zadat email - najde pole
         //driver.findElement(By.id("emailInput")).sendKeys("m@v.sk");
-        enterEmail("w@v.sk");
+        calculatorPage.enterEmail("w@v.sk");
 
         Assert.assertTrue(driver.findElement(By.cssSelector("button.btn-block")).isEnabled());
 
@@ -92,29 +91,11 @@ public class CalculationTest extends TestBase {
         Assert.assertFalse(driver.findElement(By.xpath("//*[@id='app']/div/div[1]/div[5]/div[3]/p")).getText().isEmpty());
     }
 
-    private void selectFund(String fundToSelect){
-        new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText(fundToSelect);
-        //nahradil si tvrdy input premennou "fundToSelect"
-           // vyberanie Fund z povodneho scriptu sme vytiahli von
-            //private - viditelna iba vramci tejto class. public je viditelna pre cely projekt
-              // void - nema ziadny output, iba vykona nejaky prikaz
-    }
 
-    private void onetimeInvestment(String amountToEnter){               //ideme nahradit kod ktory vklada sumu do fieldu one time investment
-        driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys(amountToEnter);
-
-    }
-
-    private void enterAge(String age) {                     //nahradazam vyplnanie veku
-        driver.findElement(By.id("yearsInput")).sendKeys(age);
-    }
-
-    private void enterEmail(String email) {                     //nahradzam vyplnenie mejlu
-        driver.findElement(By.id("emailInput")).sendKeys(email);
-    }
 
     @Test
     public void everyFund() {
+
         String[] fundsToSelect = {"Handelsbanken Aktiv 100","Hoggwart's Fund","Fellowship investment group","McDuck's safe",
                 "Batman's Cave Development","Death Star real estate","Tom & Jerry corp"};
         for (String fundToSelect : fundsToSelect) {

@@ -1,6 +1,6 @@
 package tests;
 
-import Base.TestBase;
+import base.TestBase;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

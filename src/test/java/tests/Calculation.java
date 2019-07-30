@@ -50,7 +50,7 @@ public class Calculation {
         return false;
     }
 
-    private void selectFund(String fundToSelect){
+    public void selectFund(String fundToSelect){
         new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText(fundToSelect);
         //nahradil si tvrdy input premennou "fundToSelect"
         // vyberanie Fund z povodneho scriptu sme vytiahli von
