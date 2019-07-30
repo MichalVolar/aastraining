@@ -58,6 +58,10 @@ public class NewSavingReqestTest extends TestBase {
         Assert.assertEquals(fundName,driver.
                 findElement(By.xpath("//ul[contains(@class,'saving-list')]/li//div/p[contains(@class,'fund-description')]"))
                 .getText());
+        //findElement(By.cssSelector(ul.saving-list > li > div.saving-detail)).findElement(By.cssSelector(p.fund-descrition))
+        //takto si vies vytiahnut nejaku funkcnu cast a retazit za to dalsi findElement kde uz vytiahnes konkretnu vec. funguje aj kombinacia xpath,css
+        // ked retazujes xpath tak do naviazaneho zacinas takto: .findElement(./p[contains(@class,'fund-description')]
     }
+
 
 }
