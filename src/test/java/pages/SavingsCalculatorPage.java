@@ -35,6 +35,8 @@ private WebDriver pageDriver;
         // void - nema ziadny output, iba vykona nejaky prikaz
     }
 
+
+
     public void onetimeInvestment(String amountToEnter){               //ideme nahradit kod ktory vklada sumu do fieldu one time investment
         pageDriver.findElement(By.id("oneTimeInvestmentInput")).sendKeys(amountToEnter);
     }

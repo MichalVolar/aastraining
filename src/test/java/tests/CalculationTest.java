@@ -1,6 +1,7 @@
 package tests;
 
 
+import Utilities.Utils;
 import base.TestBase;
 import org.junit.After;
 import org.junit.Assert;
@@ -96,11 +97,22 @@ public class CalculationTest extends TestBase {
     @Test
     public void everyFund() {
 
-        String[] fundsToSelect = {"Handelsbanken Aktiv 100","Hoggwart's Fund","Fellowship investment group","McDuck's safe",
-                "Batman's Cave Development","Death Star real estate","Tom & Jerry corp"};
-        for (String fundToSelect : fundsToSelect) {
-            System.out.println(fundToSelect);
-        }
+            String[] fundsToSelect = {"Handelsbanken Aktiv 100","Hoggwart's Fund","Fellowship investment group","McDuck's safe",
+                    "Batman's Cave Development","Death Star real estate","Tom & Jerry corp"};
+            for (String fundToSelect : fundsToSelect) {
+                System.out.println(fundToSelect);
+            }
+
+    }
+
+
+    @Test
+    public void enterRandomFund() {
+        int numberOfOptions = new Select(driver.findElement(By.id("fundSelect"))).getOptions().size();
+        new Select(driver.findElement(By.id("fundSelect"))).selectByIndex(Utils.getRandomNumberInRange(
+                1,
+                numberOfOptions - 1
+        ));
 
     }
 
