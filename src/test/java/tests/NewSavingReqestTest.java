@@ -84,13 +84,13 @@ public class NewSavingReqestTest extends TestBase {
         driver.findElements(By.xpath("//ul[contains(@class,'saving-list')]/li//div"));
 
         System.out.println("covfefe");     //sout
-
+        ///alt+f8
         //skontroluj pocet ci sedi, ze si poslal 20 requestov
         Assert.assertEquals(20,driver.findElement(By.cssSelector("ul.saving-list>li>div.saving-detail")).getSize()
         );
     }
 
-      ///alt+f8
+
 
 
 }
