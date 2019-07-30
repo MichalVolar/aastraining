@@ -105,7 +105,6 @@ public class CalculationTest extends TestBase {
     }
 
 
-
     @After
     public void tearDown() {              //do after si vytiahol zatvaranie browsera ktore si mal v kazdej metode zvlast.
         //Thread.sleep(500000000);         // pocka 5 sekund               // interupted exception ti pribudlo ked si povolil exception

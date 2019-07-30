@@ -13,7 +13,7 @@ private WebDriver pageDriver;
         this.pageDriver = driver;
     }
 
-    private String getTotalIncome(){
+    public String getTotalIncome(){
         return pageDriver.findElement(By.xpath("//*[@id='app']/div/div[1]/div[5]/div[1]/p")).getText();
     }
 
