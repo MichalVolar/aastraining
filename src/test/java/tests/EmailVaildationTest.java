@@ -17,13 +17,18 @@ import java.util.stream.Collectors;
 
 public class EmailVaildationTest extends TestBase {
     @Test
-    public void itShouldDisplayErrorWhenEmailIsInvalid() {
+    public void itShouldDisplayErrorWhenEmailIsInvalid() throws FileNotFoundException {
         SavingsCalculatorPage calculatorPage = new SavingsCalculatorPage(driver);
+        for (String invalidEmail : readInvalidEmails()) {
+            calculatorPage.enterEmail(invalidEmail);
 
-        calculatorPage.enterEmail("abc");
-        Assert.assertTrue(driver.findElement(By.xpath("//div[input[@id='emailInput']]"))
-                .getAttribute("class")
-                .contains("error"));
+            Assert.assertTrue(driver.findElement(By.xpath("//div[input[@id='emailInput']]"))
+                    .getAttribute("class")
+                    .contains("error"));
+        }
+
+
+
 
         //vytvorit novy saving request
         System.out.println("break");
