@@ -38,5 +38,26 @@ public class NewSavingReqestTest extends TestBase {
 
     }
 
+    @Test
+    public void itShouldDisplayFundInNewRequest(){
+        SavingsCalculatorPage calculatorPage = new SavingsCalculatorPage(driver);
+
+        String fundName = "McDuck's safe";
+
+        calculatorPage.selectFund(fundName);
+        calculatorPage.onetimeInvestment("100");
+        calculatorPage.enterAge("25");
+        calculatorPage.enterEmail("m@v.sk");
+        //vytvorit novy saving request
+        driver.findElement(By.cssSelector("button.btn-block")).click();
+        // precitat zo stranky popis fondu z druheho stlpca
+        System.out.println(driver.findElement(By.xpath("//ul[contains(@class,'saving-list')]/li//div/p[contains(@class,'fund-description')]"))
+                .getText());
+        //tu si si vytlacil nazov fondu ktory sa zobrazuje
+
+        Assert.assertEquals(fundName,driver.
+                findElement(By.xpath("//ul[contains(@class,'saving-list')]/li//div/p[contains(@class,'fund-description')]"))
+                .getText());
+    }
 
 }
